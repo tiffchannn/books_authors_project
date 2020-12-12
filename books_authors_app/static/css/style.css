@@ -1,0 +1,26 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 13px;
+  text-align:center;
+}
+
+table {
+  width:100%;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+table tr:nth-child(even) {
+  background-color: #eee;
+}
+table tr:nth-child(odd) {
+  background-color: #fff;
+}
+table th {
+  background-color: lightblue;
+  color: white;
+}

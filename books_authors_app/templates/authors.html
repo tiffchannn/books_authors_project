@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Books & Authors</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="add-book">
+        <h1>Add An Author</h1>
+            <div class="form-row">
+            <form action="/addAuthor" method='post'>
+                {% csrf_token %}
+            <div class="col">
+                First Name: <input type="text" class="form-control" name="first_name">
+            </div>
+            <div class="col">
+              Last Name: <input type="text" class="form-control" name="last_name">
+          </div>
+            <div class="col">
+                Notes: <input type="text" class="form-control" name="notes">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Add Author">
+            </form>
+            </div>
+    </div>
+
+    <div class="all-authors">
+      <table>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+
+          {% for author in all_authors %}
+          <tr>
+            <td>{{author.id}}</td>
+            <td>{{author.first_name}} {{author.last_name}}</td>
+            {# click on view and redirect to /authors/author_id #}
+            <td><a href="/authors/{{author.id}}"">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+
+      </table>
+
+    </div>
+
+    </div>
+
+  </body>
+</html>
+

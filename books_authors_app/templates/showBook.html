@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Books & Author</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      .container{
+        margin: 16px;
+        font-family: var(--bs-font-sans-serif);
+        color: #f7c669;
+        font-size: 1rem;
+        font-weight: 480;
+        line-height: 1.5;
+      }
+
+      form{
+        margin-top: 10px
+      }
+
+      p{
+        font-size: 26px;
+      }
+
+      li{
+        font-size: 21px;
+      }
+
+      select{
+        height: 35px;
+      }
+
+      .btn-outline-info {
+        color: #f7c669;
+        border-color: #f7c669;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <h1>{{this_book.title}}</h1>
+
+      <h2>ID: {{this_book.id}}</h2>
+
+      <h2>Description: {{this_book.desc}}</h2>
+
+      <p>Authors: </p>
+      {% for author in book_authors %}
+        <li>{{ author.first_name }} {{ author.last_name }}</li>
+      {% endfor %}
+
+
+      <form action="/processAddingAuthor" method="post">
+        {% csrf_token %}
+        <select name='author_id' id="author">
+          {% for author in all_authors %}
+          <option value="{{author.id}}">{{author.first_name}} {{author.last_name}}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Add Author">
+        <input type="hidden" name="book_id" value="{{this_book.id}}">
+      </form>
+    </div>
+
+  </body>
+</html>
