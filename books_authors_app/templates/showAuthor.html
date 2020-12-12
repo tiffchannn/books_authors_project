@@ -59,15 +59,15 @@
         <li>{{ book.title }}</li>
       {% endfor %}
 
-      <form action="/processAddingBook" method="post">
-        {% csrf_token %}
+      <form action="/addBookToAuthor" method="post">
+        <input type="hidden" name="author_id" value="{{this_author.id}}">
+          {% csrf_token %}
         <select name='book_id' id="book_id">
           {% for book in all_books %}
           <option value="{{book.id}}">{{book.title}}</option>
           {% endfor %}
         </select>
         <input class="btn btn-outline-info" type="submit" value="Add Book">
-        <input type="hidden" name="author_id" value="{{this_author.id}}">
       </form>
     </div>
 

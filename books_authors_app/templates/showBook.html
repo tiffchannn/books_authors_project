@@ -61,7 +61,7 @@
       {% endfor %}
 
 
-      <form action="/processAddingAuthor" method="post">
+      <form action="/addAuthorToBook" method="post">
         {% csrf_token %}
         <select name='author_id' id="author">
           {% for author in all_authors %}
