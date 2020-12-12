@@ -7,16 +7,14 @@ def index(request):
     'all_books': Book.objects.all(),
     'all_authors': Author.objects.all()
   }
-  print('*'*70)
-  print('This is from index!')
+
   return render(request, 'index.html', context)
 
 def author(request):
   context = {
     'all_authors': Author.objects.all()
   }
-  print('*'*70)
-  print('This is from author!')
+
   return render(request, 'authors.html', context)
 
 
@@ -42,20 +40,18 @@ def addAuthor(request):
 
   print('*'*70)
   print('New Author Added: ', request.POST)
-  return redirect('/')
+  return redirect('/authors')
 
 def addAuthorToBook(request):
   if request.method == 'POST':
     print('*'*70)
     print('POST Request: ', request.POST)
-    # print('Author ID from Form ', request.POST['author_id'])
 
     addedAuthor = request.POST['author_id']
     book_id = request.POST['book_id']
     Book.objects.get(id=book_id).authors.add(addedAuthor)
 
-    # print("This Book's Authors: ". this_book.authors.all())
-
+  print('Author was added to book! -------')
   return redirect(f"/books/{book_id}")
 
 def addBookToAuthor(request):
@@ -67,9 +63,7 @@ def addBookToAuthor(request):
     author_id = request.POST['author_id']
     Author.objects.get(id=author_id).books.add(addedBook)
 
-    # all_authors_books = Author.objects.get(id=author_id).books.all()
-    # print("This Book's Authors: ", all_authors_books)
-
+  print('Book was added to author! -------')
   return redirect(f"/authors/{author_id}")
 
 def displayBook(request, book_id):
@@ -77,16 +71,16 @@ def displayBook(request, book_id):
   print('*'*70)
 
   context = {
-    'this_book': Book.objects.get(id=book_id),
-    'all_authors': Author.objects.all(),
-    'book_authors': Book.objects.get(id=book_id).authors.all() # will show specific authors
+    'this_book': Book.objects.get(id=book_id), # gets specific book
+    'all_authors': Author.objects.all(), # shows all authors
+    'book_authors': Book.objects.get(id=book_id).authors.all() # will show specific book's authors
   }
+
   return render(request, 'showBook.html', context)
 
 def displayAuthor(request, author_id):
   print('in the display author function ------')
   print('*'*70)
-  # print("author id:", author_id)
 
   context = {
     'all_books': Book.objects.all(),
@@ -94,6 +88,6 @@ def displayAuthor(request, author_id):
     'all_authors': Author.objects.all(),
     'authors_books': Author.objects.get(id=author_id).books.all() # will show specific books by this author
   }
-  # print('this_author', context.this_author)
+
   return render(request, 'showAuthor.html', context)
 
